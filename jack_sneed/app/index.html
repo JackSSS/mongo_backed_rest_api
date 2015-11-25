@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ninja Fun</title>
+</head>
+<body data-ng-app="ninjaparty">
+  <main data-ng-controller="GreetingController">
+    <h1>Ninja App</h1>
+    <h2>{{greeting}}</h2>
+
+    <input type="text" data-ng-model="greeting">
+
+    <button data-ng-click="alertGreeting()">Backflip!</button>
+  </main>
+
+  <script src="bundle.js"></script>
+</body>
+</html>

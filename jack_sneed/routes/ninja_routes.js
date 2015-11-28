@@ -20,13 +20,13 @@ favicon.save(function (err) {
   });
 });
 
-// Battle
-// .findOne({ name: 'Once upon a roof walk.' })
-// .populate('wins', 11)
-// .exec(function (err, battle) {
-//   if (err) return handleServerError(err);
-//   console.log('It worked');
-// });
+Battle
+.findOne({ name: 'Once upon a roof walk.' })
+.populate('wins', 11)
+.exec(function (err, battle) {
+  if (err) return handleServerError(err);
+  console.log('It worked');
+});
 
 ninjaRouter.get('/ninja', function(req, res) {
   Ninja.find({}, function(err, data) {

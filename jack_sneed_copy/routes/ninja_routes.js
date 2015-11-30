@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var Ninja = require(__dirname + '/../models/ninja');
 var Battle = require(__dirname + '/../models/battle');
 var handleServerError = require(__dirname + '/../lib/handleServerError');
+var eatAuth = require(__dirname + '/../lib/eat_auth');
 
 var ninjaRouter = module.exports = exports = express.Router();
 var favicon = new Ninja({name: 'Favicon'});
@@ -27,6 +28,7 @@ favicon.save(function (err) {
 //   if (err) return handleServerError(err);
 //   console.log('It worked');
 // });
+ninjaRouter.use(bodyParser.json());
 
 ninjaRouter.get('/ninja', function(req, res) {
   Ninja.find({}, function(err, data) {
@@ -36,7 +38,7 @@ ninjaRouter.get('/ninja', function(req, res) {
   });
 });
 
-ninjaRouter.post('/ninja', bodyParser.json(), function(req, res) {
+ninjaRouter.post('/ninja', eatAuth, function(req, res) {
   var newNinja = new Ninja(req.body);
   newNinja.save(function(err, data) {
     if (err) return handleServerError(err, res);
@@ -45,7 +47,7 @@ ninjaRouter.post('/ninja', bodyParser.json(), function(req, res) {
   });
 });
 
-ninjaRouter.put('/ninja/:id', bodyParser.json(), function(req, res) {
+ninjaRouter.put('/ninja/:id', eatAuth, function(req, res) {
   var ninjaData = req.body;
   delete ninjaData._id;
   Ninja.update({_id: req.params.id}, ninjaData, function(err) {
@@ -63,7 +65,7 @@ ninjaRouter.get('/battle', function(req, res) {
   });
 });
 
-ninjaRouter.post('/battle', bodyParser.json(), function(req, res) {
+ninjaRouter.post('/battle', eatAuth, function(req, res) {
   var newBattle = new Battle(req.body);
   newBattle.save(function(err, data) {
     if (err) return handleServerError(err, res);
@@ -72,7 +74,7 @@ ninjaRouter.post('/battle', bodyParser.json(), function(req, res) {
   });
 });
 
-ninjaRouter.put('/battle/:id', bodyParser.json(), function(req, res) {
+ninjaRouter.put('/battle/:id', eatAuth, function(req, res) {
   var battleData = req.body;
   delete battleData._id;
   Battle.update({_id: req.params.id}, battleData, function(err) {

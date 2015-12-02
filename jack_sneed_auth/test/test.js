@@ -16,15 +16,15 @@ describe('ninja routes', function() {
     });
   });
 
-  it('should be able to create a ninja', function(done) {
+  it('should not be able to create a ninja', function(done) {
     var ninjaData = {name: 'test ninja'};
     chai.request('localhost:3000')
       .post('/api/ninja')
       .send(ninjaData)
       .end(function(err, res) {
         expect(err).to.eql(null);
-        expect(res.body.name).to.eql('test ninja');
-        expect(res.body).to.have.property('_id');
+        expect(res.body.name).to.eql(undefined);
+        expect(res.body).to.not.have.property('_id');
         done();
       });
   });
@@ -48,13 +48,13 @@ describe('ninja routes', function() {
       }.bind(this));
     });
 
-    it('should be able to change a weapon', function(done) {
+    it('should not be able to change a weapon', function(done) {
       chai.request('localhost:3000')
         .put('/api/ninja/' + this.ninja._id)
         .send({weapon: 'broken beer bottle'})
         .end(function(err, res) {
           expect(err).to.eql(null);
-          expect(res.body.msg).to.eql('Ninja out!');
+          expect(res.body.msg).to.eql('authentiCat seyzzz noe, and is watching you!!!!!1');
           done();
         });
     });
@@ -68,15 +68,15 @@ describe('battle routes', function() {
     });
   });
 
-  it('should be able to create a battle', function(done) {
+  it('should not be able to create a battle', function(done) {
     var battleData = {name: 'test battle'};
     chai.request('localhost:3000')
       .post('/api/battle')
       .send(battleData)
       .end(function(err, res) {
         expect(err).to.eql(null);
-        expect(res.body.name).to.eql('test battle');
-        expect(res.body).to.have.property('_id');
+        expect(res.body.name).to.eql(undefined);
+        expect(res.body).to.not.have.property('_id');
         done();
       });
   });
@@ -100,13 +100,13 @@ describe('battle routes', function() {
       }.bind(this));
     });
 
-    it('should be able to commit 11 party fouls', function(done) {
+    it('should not be able to commit 11 party fouls', function(done) {
       chai.request('localhost:3000')
         .put('/api/battle/' + this.battle._id)
         .send({partyFouls: 11})
         .end(function(err, res) {
           expect(err).to.eql(null);
-          expect(res.body.msg).to.eql('Ninja down!');
+          expect(res.body.msg).to.eql('authentiCat seyzzz noe, and is watching you!!!!!1');
           done();
         });
     });

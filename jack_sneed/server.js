@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var express = require('express');
 var app = express();
 var ninjaRouter = require(__dirname + '/routes/ninja_routes');
-var authRouter = require(__dirname + '/routes/auth_routes');
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ninja_base');
 
@@ -26,7 +25,6 @@ app.use(function(req, res) {
 });
 
 app.use('/api', ninjaRouter);
-app.use('/api', authRouter);
 
 app.listen(process.env.PORT || 3000, function() {
   console.log('server up');

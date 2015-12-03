@@ -1,0 +1,3 @@
+module.exports = function(app) {
+  require('./controllers/ninja_controller')(app);
+};

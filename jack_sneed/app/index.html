@@ -2,18 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ninja Fun</title>
+  <title>Ninja Battle</title>
 </head>
-<body data-ng-app="ninjaparty">
-  <main data-ng-controller="GreetingController">
-    <h1>Ninja App</h1>
-    <h2>{{greeting}}</h2>
+<body data-ng-app="NinjaApp">
+  <h1>Ninja Battle!</h1>
+  <main data-ng-controller="NinjasController" data-ng-init="getAll()">
+    <ul id="errorslist">
+      <li data-ng-repeat="error in errors">{{error}}</li>
+    </ul>
 
-    <input type="text" data-ng-model="greeting">
+    <form name="newNinjaForm" data-ng-submit="create(newNinja)">
+      <h2>New Ninja:</h2>
 
-    <button data-ng-click="alertGreeting()">Backflip!</button>
+      <label for="newNinjaName">Name:</label>
+      <input type="text" id="newNinjaName" required data-ng-model="newNinja.name">
+
+      <label for="newNinjaSuperPower">Super Power: </label>
+      <input type="text" id="newNinjaSuperPower" data-ng-model="newNinja.superPower" placeholder="invisibility">
+
+      <label for="newNinjaWeapon">Weapon: </label>
+      <input type="text" id="newNinjaWeapon" data-ng-model="newNinja.weapon" placeholder="brass knuckles">
+
+      <label for="newNinjaFood">Food:</label>
+      <input type="text" id="newNinjaFood" data-ng-model="newNinja.food" placeholder="will power">
+
+      <label for="newNinjaCountry">Country: </label>
+      <input type="text" id="newNinjaCountry" data-ng-model="newNinja.country" placeholder="Ninjland">
+
+      <button type="submit" data-ng-disabled="newNinjaForm.$invalid">Create New Ninja</button>
+    </form>
+
+    <ul id="ninjalist">
+      <li data-ng-repeat="ninja in ninjas">
+        {{ninja.name}}
+        <form name="ninjaForm{{ninja._id}}" data-ng-submit="update(ninja)" data-ng-if="ninja.editing">
+          <h2>Update {{ninja.name}}</h2>
+
+          <label for="ninja{{ninja._id}}">Name:</label>
+          <input type="text" id="ninja{{ninja._id}}" required data-ng-model="ninja.name">
+
+          <label for="ninja{{ninja._id}}">Weapon:</label>
+          <input type="text" id="ninja{{ninja._id}}" data-ng-model="ninja.weapon" placeholder="invisibility">
+
+          <label for="ninja{{ninja._id}}">Super Power: </label>
+          <input type="text" id="ninja{{ninja._id}}" data-ng-model="ninja.superPower" placeholder="brass knuckles">
+
+          <label for="ninja{{ninja._id}}">Food:</label>
+          <input type="text" id="ninja{{ninja._id}}" data-ng-model="ninja.food" placeholder="will power">
+
+          <label for="ninja{{ninja._id}}">Country:</label>
+          <input type="text" id="ninja{{ninja._id}}" data-ng-model="ninja.country" placeholder="Ninjland">
+
+          <button type="submit">Save</button>
+          <button data-ng-click="ninja.editing = false">Cancel</button>
+        </form>
+        <button data-ng-if="!ninja.editing" data-ng-click="ninja.editing = true">Update Ninja</button>
+
+        <button data-ng-if="!ninja.editing" data-ng-click="remove(ninja)">Delete</button>
+      </li>
+    </ul>
   </main>
-
-  <script src="bundle.js"></script>
+  <script src="/bundle.js"></script>
 </body>
 </html>

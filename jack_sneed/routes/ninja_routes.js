@@ -5,28 +5,6 @@ var Battle = require(__dirname + '/../models/battle');
 var handleServerError = require(__dirname + '/../lib/handleServerError');
 
 var ninjaRouter = module.exports = exports = express.Router();
-var favicon = new Ninja({name: 'Favicon'});
-
-favicon.save(function (err) {
-  if (err) return handleServerError(err);
-
-  var battle1 = new Battle({
-    name: "Once upon a roof walk.",
-    wins: 11
-  });
-
-  battle1.save(function (err) {
-    if (err) return handleServerError(err);
-  });
-});
-
-// Battle
-// .findOne({ name: 'Once upon a roof walk.' })
-// .populate('wins', 11)
-// .exec(function (err, battle) {
-//   if (err) return handleServerError(err);
-//   console.log('It worked');
-// });
 
 ninjaRouter.get('/ninja', function(req, res) {
   Ninja.find({}, function(err, data) {
@@ -52,6 +30,14 @@ ninjaRouter.put('/ninja/:id', bodyParser.json(), function(req, res) {
     if (err) return handleServerError(err, res);
 
     res.json({msg: 'Ninja out!'});
+  });
+});
+
+ninjaRouter.delete('/ninja/:id', function(req, res) {
+  Ninja.remove({_id: req.params.id}, function(err) {
+    if (err) return handleServerError(err, res);
+
+    res.json({msg: 'success!'});
   });
 });
 

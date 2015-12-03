@@ -47,14 +47,8 @@
 	__webpack_require__(1);
 	var angular = window.angular;
 
-	var ninjaApp = angular.module('ninjaparty', []);
-	ninjaApp.controller('GreetingController', ['$scope', function($scope) {
-	  $scope.greeting = 'Ninja Out!';
-
-	  $scope.alertGreeting = function() {
-	    alert($scope.greeting);
-	  };
-	}]);
+	var ninjaApp = angular.module('NinjaApp', []);
+	__webpack_require__(2)(ninjaApp);
 
 
 /***/ },
@@ -29079,6 +29073,70 @@
 	})(window, document);
 
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function(app) {
+	  __webpack_require__(3)(app);
+	};
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	module.exports = function(app) {
+	  app.controller('NinjasController', ['$scope', '$http', function($scope, $http) {
+	    $scope.ninjas = [];
+	    $scope.errors = [];
+	    $scope.newNinja = null;
+
+	    $scope.getAll = function() {
+	      $http.get('/api/ninja')
+	        .then(function(res) {
+	          $scope.ninjas = res.data;
+	        }, function(err) {
+	          console.log(err.data);
+	        });
+	    };
+
+	    $scope.create = function(ninja) {
+	      $http.post('/api/ninja', ninja)
+	        .then(function(res) {
+	          $scope.ninjas.push(res.data);
+	          $scope.newNinja = null;
+	        }, function(err) {
+	          console.log(err.data)
+	        });
+	    };
+
+	    $scope.update = function(ninja) {
+	      ninja.editing = false;
+	      $http.put('/api/ninja/' + ninja._id, ninja)
+	        .then(function(res) {
+	          console.log('this ninja has a been modified');
+	        }, function(err) {
+	          $scope.errors.push('could not get ninja: ' + ninja.name + ' to dojo');
+	          console.log(err.data);
+	        });
+	    };
+
+	    $scope.remove = function(ninja) {
+	      $scope.ninjas.splice($scope.ninjas.indexOf(ninja), 1);
+	      $http.delete('/api/ninja/' + ninja._id)
+	        .then(function(res) {
+	          console.log('ninja deleted');
+	        }, function(err) {
+	          console.log(err.data);
+	          $scope.errors.push('could not delete ninja: ' + ninja.name);
+	          $scope.getAll();
+	        });
+	    };
+	  }]);
+	};
+
 
 /***/ }
 /******/ ]);

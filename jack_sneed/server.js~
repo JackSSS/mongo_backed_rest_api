@@ -5,7 +5,7 @@ var ninjaRouter = require(__dirname + '/routes/ninja_routes');
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ninja_base');
 
-app.use(express.static('build'));
+app.use(express.static(__dirname + '/build'));
 
 app.use('/api', ninjaRouter);
 

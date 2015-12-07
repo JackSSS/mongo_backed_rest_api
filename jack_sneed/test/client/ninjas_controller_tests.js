@@ -39,13 +39,36 @@ describe('ninja controller', function() {
       expect($scope.ninjas[0].name).toBe('test ninja');
     });
 
-    it('should not be able to create a new ninja', function() {
+    it('should be able to create a new ninja', function() {
       $httpBackend.expectPOST('/api/ninja', {name: 'test ninja'}).respond(200, {name: 'a different ninja'});
       expect($scope.ninjas.length).toBe(0);
-      $scope.newNinja = {name: 'test ninja'};
+      expect($scope.newNinja).toEqual(null);
+      $scope.newNinja = {};
+      $scope.newNinja.name = 'test ninja';
       $scope.create($scope.newNinja);
       $httpBackend.flush();
-      expect($scope.newNinja).toBeNull();
+      expect($scope.ninjas[0].name).toBe('a different ninja');
+      expect($scope.newNinja).toEqual(null);
+    });
+
+    it('should update a ninja', function() {
+      var testNinja = {name: 'test ninja', _id: '30000'};
+      $scope.ninjas = [testNinja];
+      $httpBackend.expectPUT('/api/ninja/30000', testNinja).respond(200);
+      expect($scope.ninjas.length).toBe(1);
+      $scope.update(testNinja);
+      $httpBackend.flush();
+      expect($scope.ninjas[0].name).toBe('test ninja');
+    });
+
+    it('should delete a ninja', function() {
+      var testNinja = {name: 'test ninja', _id: '30000'};
+      $scope.ninjas = [testNinja];
+      $httpBackend.expectDELETE('/api/ninja/30000').respond(200, 'deleted');
+      expect($scope.ninjas.length).toBe(1);
+      $scope.remove(testNinja);
+      $httpBackend.flush();
+      expect($scope.ninjas.length).toBe(0);
     });
   });
 });

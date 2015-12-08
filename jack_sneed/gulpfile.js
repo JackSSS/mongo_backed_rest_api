@@ -1,10 +1,8 @@
 'use strict';
 
-
 var gulp = require('gulp');
 var webpack = require('webpack-stream');
 var minifyCss = require('gulp-minify-css');
-var concatCss = require('gulp-concat-css');
 var gulpWatch = require('gulp-watch');
 var sass = require('gulp-sass');
 var maps = require('gulp-sourcemaps');
@@ -49,5 +47,5 @@ gulp.task('webpack:test', function() {
   .pipe(gulp.dest('test/client/'));
 });
 
-gulp.task('build:dev', ['webpack:dev', 'static:dev', 'css:dev']);
+gulp.task('build:dev', ['webpack:dev', 'static:dev', 'sass:dev']);
 gulp.task('default', ['build:dev']);

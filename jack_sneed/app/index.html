@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Ninja Battle</title>
+  <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+  <link href='application.css'rel='stylesheet' type='text/css'>
 </head>
 <body data-ng-app="NinjaApp">
-  <h1>Ninja Battle!</h1>
-  <main class="flex-container" data-ng-controller="NinjasController" data-ng-init="getAll()">
+  <h1>Ninja Battle</h1>
+  <main data-ng-controller="NinjasController" data-ng-init="getAll()">
     <ul id="errorslist">
       <li data-ng-repeat="error in errors">{{error}}</li>
     </ul>
@@ -32,8 +34,8 @@
       <button type="submit" data-ng-disabled="newNinjaForm.$invalid">Create New Ninja</button>
     </form>
 
-    <ul id="ninjalist">
-      <li data-ng-repeat="ninja in ninjas">
+    <ul class="flex-container" id="ninjalist">
+      <li class="flex-item" data-ng-repeat="ninja in ninjas">
         {{ninja.name}}
         <form name="ninjaForm{{ninja._id}}" data-ng-submit="update(ninja)" data-ng-if="ninja.editing">
           <h2>Update {{ninja.name}}</h2>

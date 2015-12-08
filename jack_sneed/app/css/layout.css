@@ -1,0 +1,17 @@
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-content: center;
+}
+
+.flex-item {
+  padding: 1em;
+  order: 1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+

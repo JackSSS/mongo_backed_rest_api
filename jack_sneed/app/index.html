@@ -6,7 +6,7 @@
 </head>
 <body data-ng-app="NinjaApp">
   <h1>Ninja Battle!</h1>
-  <main data-ng-controller="NinjasController" data-ng-init="getAll()">
+  <main class="flex-container" data-ng-controller="NinjasController" data-ng-init="getAll()">
     <ul id="errorslist">
       <li data-ng-repeat="error in errors">{{error}}</li>
     </ul>

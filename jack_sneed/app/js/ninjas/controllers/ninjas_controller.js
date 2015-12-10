@@ -45,5 +45,15 @@ module.exports = function(app) {
           $scope.getAll();
         });
     };
+
+    $scope.edit = function(ninja) {
+      $scope.orig = angular.copy(ninja);
+      ninja.editing = true;
+    };
+
+    $scope.cancelEdit = function(ninja) {
+        angular.copy($scope.orig, ninja);
+        ninja.editing = false;
+    };
   }]);
 };

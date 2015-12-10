@@ -1,5 +1,9 @@
+$border-radius: .4em;
+
 button {
-border-radius: .4em;
+@if $border-radius > 0 {
+    border-radius: $border-radius;
+  }
 background-color: #FFF21D;
 color: black;
 }

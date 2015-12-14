@@ -3,6 +3,7 @@ $border-radius: .4em;
 button {
 @if $border-radius > 0 {
     border-radius: $border-radius;
+    border: $border-radius;
   }
 background-color: #FFF21D;
 color: black;

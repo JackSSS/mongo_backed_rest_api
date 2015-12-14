@@ -1,0 +1,23 @@
+<div>
+  <form name="{{formName}}" data-ng-submit="save({ninja: ninja})">
+    <h3>{{headingText}}</h3>
+
+    <label for="ninjaName">Name:</label>
+    <input type="text" id="ninjaName" required data-ng-model="ninja.name">
+
+    <label for="ninjaSuperPower">Super Power: </label>
+    <input type="text" id="ninjaSuperPower" data-ng-model="ninja.superPower" placeholder="invisibility">
+
+    <label for="ninjaWeapon">Weapon: </label>
+    <input type="text" id="ninjaWeapon" data-ng-model="ninja.weapon" placeholder="brass knuckles">
+
+    <label for="ninjaFood">Food:</label>
+    <input type="text" id="ninjaFood" data-ng-model="ninja.food" placeholder="will power">
+
+    <label for="ninjaCountry">Country: </label>
+    <input type="text" id="ninjaCountry" data-ng-model="ninja.country" placeholder="Ninjland">
+
+    <button type="submit">{{buttonText}}</button>
+  </form>
+  <ng-transclude></ng-transclude>
+</div>

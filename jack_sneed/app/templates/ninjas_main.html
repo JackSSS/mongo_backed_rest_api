@@ -1,0 +1,35 @@
+<section data-ng-controller="NinjasController" data-ng-init="getAll()">
+  <ul id="errorslist">
+    <li data-ng-repeat="error in errors">{{error}}</li>
+  </ul>
+
+  <div data-ninja-transclude-directive data-message-one="Fun fact: Using smoke bombs">
+    Ninjas can transclude too!
+  </div>
+
+  <div data-ninja-form-directive
+    data-button-text="Create New Ninja"
+    data-form-name="newNinjaForm"
+    data-heading-text="Create A New Ninja"
+    data-ninja="newNinja"
+    data-save="create(ninja)"
+  ></div>
+
+  <div class="flex-container" data-list-directive data-title="ninjas">
+    <li class="flex-item" data-ng-repeat="ninja in ninjas">
+      <div data-ninja-directive data-ninja="ninja"></div>
+      <div data-ninja-form-directive
+        data-ng-if="ninja.editing"
+        data-button-text="Save Ninja!"
+        data-form-name="edit{{ninja._id}}"
+        data-ninja="ninja"
+        data-heading-text="Editing {{ninja.name}}"
+        data-save="update(ninja)">
+        <button data-ng-click="ninja.editing = false">Cancel</button>
+      </div>
+      <button data-ng-if="!ninja.editing" data-ng-click="ninja.editing = true">Update</button>
+
+      <button data-ng-if="!ninja.editing" data-ng-click="remove(ninja)">Delete</button>
+    </li>
+  </ul>
+</section>
